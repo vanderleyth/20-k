@@ -1,0 +1,13 @@
+{
+  "name": "meta-20k-app",
+  "version": "1.0.0",
+  "description": "Controle da Meta de R$ 20.000 até 10/Out/2027",
+  "scripts": {
+    "build": "echo 'Build web pronto'"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2"
+  }
+}
