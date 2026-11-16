@@ -1,0 +1,6 @@
+{
+  "appId": "com.vanderley.meta20k",
+  "appName": "Meta 20k",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
