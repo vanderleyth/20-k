@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1e3a5f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Meta R$ 20k • 10/Out/2027</title>
+  <style>
+    :root {
+      --navy: #1e3a5f;
+      --navy-dark: #152a45;
+      --teal: #2e6f73;
+      --teal-light: #e6f2f2;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --green: #16a34a;
+      --green-bg: #dcfce7;
+      --amber: #d97706;
+      --amber-bg: #fef3c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding-bottom: 40px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: #fff;
+      padding: 16px 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .header-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    .header-sub {
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+
+    .btn-fixos {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .kpi-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 12px;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      color: #cbd5e1;
+      margin-bottom: 2px;
+    }
+
+    .kpi-value {
+      font-size: 19px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .progress-wrap {
+      background: rgba(255, 255, 255, 0.2);
+      height: 10px;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: #4ade80;
+      width: 0%;
+      transition: width 0.4s ease;
+      border-radius: 99px;
+    }
+
+    .header-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #e2e8f0;
+    }
+
+    .cdi-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      color: #fff;
+    }
+
+    .container {
+      padding: 16px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      margin: 12px 0 8px;
+    }
+
+    .highlight-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+      border: 2px solid var(--teal);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 16px rgba(46, 111, 115, 0.12);
+    }
+
+    .badge-destaque {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .month-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .month-card.paid {
+      background: #f8fafc;
+      border-color: #bbf7d0;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .month-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .month-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .card-teto {
+      background: var(--teal-light);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 8px;
+      text-align: right;
+    }
+
+    .card-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .input-group {
+      flex: 1;
+    }
+
+    .input-label {
+      font-size: 10px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .val-input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      background: #fff;
+    }
+
+    .btn-check {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 125px;
+      justify-content: center;
+      transition: transform 0.1s;
+    }
+
+    .btn-check:active {
+      transform: scale(0.96);
+    }
+
+    .btn-pending {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .btn-paid {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #86efac;
+    }
+
+    .actions-footer {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+    }
+
+    .btn-danger {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: none;
+      font-size: 12px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      z-index: 200;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: #fff;
+      width: 100%;
+      max-width: 520px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      padding: 20px;
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .fixo-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 300;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-title">Meta R$ 20.000 • 10/Out/27</div>
+        <div class="header-sub">Renda R$ 4.600 | Fixos R$ 1.847,12</div>
+      </div>
+      <button class="btn-fixos" onclick="toggleModal(true)">Contas Fixas</button>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="kpi-label">Saldo Acumulado</div>
+        <div class="kpi-value" id="kpi-saved">R$ 0,00</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Falta para R$ 20k</div>
+        <div class="kpi-value" id="kpi-left">R$ 20.000,00</div>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="header-footer">
+      <span id="kpi-pct">0,0% concluído (0/11 meses)</span>
+      <button class="cdi-toggle" id="btn-cdi" onclick="toggleCDI()">CDI 100%: Ativo</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="highlight-section"></div>
+
+    <div class="section-label">Cronograma Completo (Até dia 10)</div>
+    <div id="months-list"></div>
+
+    <div class="actions-footer">
+      <button class="btn-secondary" onclick="exportToNotes()">📋 Copiar Resumo para Samsung Notes</button>
+      <button class="btn-danger" onclick="resetData()">Zerar marcações e voltar ao padrão</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modal-fixos" onclick="if(event.target===this) toggleModal(false)">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <strong style="font-size:16px; color:var(--navy)">Base de Custos Fixos Mensais</strong>
+        <button onclick="toggleModal(false)" style="border:none;background:none;font-size:20px;color:var(--muted)">✕</button>
+      </div>
+      <div class="fixo-row"><span>Reforma Casa Brasil</span><strong>R$ 789,12</strong></div>
+      <div class="fixo-row"><span>Habitação Casa</span><strong>R$ 360,00</strong></div>
+      <div class="fixo-row"><span>Energia Elétrica (média)</span><strong>R$ 191,00</strong></div>
+      <div class="fixo-row"><span>Água (média)</span><strong>R$ 150,00</strong></div>
+      <div class="fixo-row"><span>Internet</span><strong>R$ 140,00</strong></div>
+      <div class="fixo-row"><span>Gás (Manoel do Gás)</span><strong>R$ 135,00</strong></div>
+      <div class="fixo-row"><span>Faculdade</span><strong>R$ 82,00</strong></div>
+      <div class="fixo-row" style="border-top:2px solid var(--navy);margin-top:6px;padding-top:10px;color:var(--navy)">
+        <strong>TOTAL FIXOS</strong><strong>R$ 1.847,12</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copiado!</div>
+
+  <script>
+    const GOAL = 20000;
+    const STORAGE_KEY = 'meta_20k_vanderley_v2';
+
+    const DEFAULT_PLAN = [
+      { id: '2026-12', label: '10/Dez/2026', note: 'R$ 400 salário + R$ 1.900 (2ª parc. 13º)', target: 2300, cardLimit: 550, actual: 2300, paid: false },
+      { id: '2027-01', label: '10/Jan/2027', note: 'Fase 2: Alívio inicial de parcelas', target: 900, cardLimit: 610, actual: 900, paid: false },
+      { id: '2027-02', label: '10/Fev/2027', note: 'Fase 3: Aceleração', target: 1250, cardLimit: 675, actual: 1250, paid: false },
+      { id: '2027-03', label: '10/Mar/2027', note: 'Fase 3: Aceleração', target: 1350, cardLimit: 685, actual: 1350, paid: false },
+      { id: '2027-04', label: '10/Abr/2027', note: 'Fase 3: Aceleração', target: 1500, cardLimit: 720, actual: 1500, paid: false },
+      { id: '2027-05', label: '10/Mai/2027', note: 'Fase 4: Velocidade máxima', target: 1650, cardLimit: 785, actual: 1650, paid: false },
+      { id: '2027-06', label: '10/Jun/2027', note: 'R$ 1.800 salário + R$ 1.300 (1/3 Férias)', target: 3100, cardLimit: 850, actual: 3100, paid: false },
+      { id: '2027-07', label: '10/Jul/2027', note: 'Parcelas antigas zeradas', target: 1800, cardLimit: 950, actual: 1800, paid: false },
+      { id: '2027-08', label: '10/Ago/2027', note: 'Reta final', target: 1800, cardLimit: 950, actual: 1800, paid: false },
+      { id: '2027-09', label: '10/Set/2027', note: 'Reta final', target: 1800, cardLimit: 950, actual: 1800, paid: false },
+      { id: '2027-10', label: '10/Out/2027', note: 'Fechamento da meta R$ 20k', target: 1800, cardLimit: 950, actual: 1800, paid: false }
+    ];
+
+    let state = {
+      useCDI: true,
+      items: JSON.parse(JSON.stringify(DEFAULT_PLAN))
+    };
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && Array.isArray(parsed.items)) {
+            state = parsed;
+          }
+        }
+      } catch (e) {}
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    }
+
+    function formatBRL(val) {
+      return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function toggleCDI() {
+      state.useCDI = !state.useCDI;
+      saveState();
+      render();
+    }
+
+    function togglePaid(idx) {
+      state.items[idx].paid = !state.items[idx].paid;
+      saveState();
+      render();
+      showToast(state.items[idx].paid ? 'Depósito marcado como pago!' : 'Marcado como pendente');
+    }
+
+    function updateAmount(idx, val) {
+      const num = parseFloat(val);
+      state.items[idx].actual = isNaN(num) ? 0 : num;
+      saveState();
+      updateSummaryOnly();
+    }
+
+    function calculateTotals() {
+      let principal = 0;
+      let paidCount = 0;
+      const monthlyRate = Math.pow(1 + 0.105, 1/12) - 1;
+      let accumulatedWithCDI = 0;
+
+      state.items.forEach((item, index) => {
+        if (index > 0 && accumulatedWithCDI > 0) {
+          accumulatedWithCDI *= (1 + monthlyRate);
+        }
+        if (item.paid) {
+          principal += item.actual;
+          accumulatedWithCDI += item.actual;
+          paidCount++;
+        }
+      });
+
+      const total = state.useCDI ? accumulatedWithCDI : principal;
+      return { principal, total, paidCount };
+    }
+
+    function updateSummaryOnly() {
+      const { total, paidCount } = calculateTotals();
+      const left = Math.max(0, GOAL - total);
+      const pct = Math.min(100, (total / GOAL) * 100);
+
+      document.getElementById('kpi-saved').textContent = formatBRL(total);
+      document.getElementById('kpi-left').textContent = formatBRL(left);
+      document.getElementById('kpi-pct').textContent = `${pct.toFixed(1).replace('.', ',')}% concluído (${paidCount}/11 meses)`;
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+      document.getElementById('btn-cdi').textContent = state.useCDI ? 'CDI 100%: Ativo' : 'CDI: Desligado';
+    }
+
+    function getActiveMonthIndex() {
+      const now = new Date();
+      const ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      const exactIdx = state.items.findIndex(i => i.id === ym && !i.paid);
+      if (exactIdx !== -1) return exactIdx;
+      const firstUnpaid = state.items.findIndex(i => !i.paid);
+      return firstUnpaid !== -1 ? firstUnpaid : 0;
+    }
+
+    function renderCardHTML(item, idx, isHighlight) {
+      return `
+        <div class="${isHighlight ? 'highlight-card' : 'month-card'} ${item.paid ? 'paid' : ''}">
+          ${isHighlight ? '<span class="badge-destaque">Foco Atual / Próximo Depósito</span>' : ''}
+          <div class="card-top">
+            <div>
+              <div class="month-name">${item.label}</div>
+              <div class="month-note">${item.note}</div>
+            </div>
+            <div class="card-teto">
+              Teto Cartão<br>${formatBRL(item.cardLimit)}
+            </div>
+          </div>
+          <div class="card-controls">
+            <div class="input-group">
+              <label class="input-label">Meta: ${formatBRL(item.target)} • Valor guardado (R$)</label>
+              <input type="number" step="10" class="val-input" value="${item.actual}" onchange="updateAmount(${idx}, this.value)">
+            </div>
+            <button class="btn-check ${item.paid ? 'btn-paid' : 'btn-pending'}" onclick="togglePaid(${idx})">
+              ${item.paid ? '✓ Pago' : 'Marcar Pago'}
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function render() {
+      updateSummaryOnly();
+      const activeIdx = getActiveMonthIndex();
+      const highlightContainer = document.getElementById('highlight-section');
+      const listContainer = document.getElementById('months-list');
+
+      highlightContainer.innerHTML = renderCardHTML(state.items[activeIdx], activeIdx, true);
+
+      let listHTML = '';
+      state.items.forEach((item, idx) => {
+        listHTML += renderCardHTML(item, idx, false);
+      });
+      listContainer.innerHTML = listHTML;
+    }
+
+    function toggleModal(show) {
+      document.getElementById('modal-fixos').classList.toggle('open', show);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function exportToNotes() {
+      const { total, paidCount } = calculateTotals();
+      let lines = [
+        `META R$ 20.000 ATÉ 10/OUT/2027`,
+        `Saldo Atual: ${formatBRL(total)} (${paidCount}/11 pagos)`,
+        `Falta: ${formatBRL(Math.max(0, GOAL - total))}`,
+        ``,
+        `--- CRONOGRAMA ---`
+      ];
+      state.items.forEach(i => {
+        lines.push(`${i.paid ? '[x]' : '[ ]'} ${i.label} — ${formatBRL(i.actual)} | Teto Cartão: ${formatBRL(i.cardLimit)}`);
+      });
+      const text = lines.join('\n');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => showToast('Resumo copiado para colar nas Notas!'));
+      } else {
+        showToast('Não foi possível copiar automaticamente.');
+      }
+    }
+
+    function resetData() {
+      if (confirm('Deseja limpar todas as marcações e restaurar os valores originais?')) {
+        state.items = JSON.parse(JSON.stringify(DEFAULT_PLAN));
+        state.useCDI = true;
+        saveState();
+        render();
+        showToast('Dados restaurados!');
+      }
+    }
+
+    loadState();
+    render();
+  </script>
+</body>
+</html>
